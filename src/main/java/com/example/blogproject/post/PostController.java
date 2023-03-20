@@ -4,10 +4,12 @@ import com.example.blogproject.user.SiteUser;
 import com.example.blogproject.user.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -52,5 +54,19 @@ public class PostController {
         model.addAttribute("paging", paging);
 
         return "main";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/post/remove/{id}")
+    public String removePost(Principal principal, @PathVariable("id") Long id) {
+        Post post = this.postService.findOne(id);
+
+        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다");
+        }
+
+        this.postService.remove(post);
+
+        return "redirect:/";
     }
 }

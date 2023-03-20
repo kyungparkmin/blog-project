@@ -33,7 +33,7 @@
       </div>
     </div>
   </nav>
-  <button type="button" class="btn btn-primary" onclick="location.href='/post'">글쓰기</button>
+  <button type="button" class="btn btn-primary" onclick="location.href='/post'" sec:authorize="isAuthenticated()">글쓰기</button>
   <!--<div class="w-75 p-3 row" style="float: none; margin: 0 auto">
     <table class="table table-hover">
       <thead>
@@ -59,16 +59,47 @@
     </table>
   </div>-->
   <div class="w-75 p-3 row" style="float: none; margin: 0 auto">
-
     <div class="col-sm-6 col-md-4" th:each="post : ${paging}" style="margin-top: 30px;">
       <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="" alt="Card image cap">
+        <img class="card-img-top" src="https://spaghetti-listener.s3.ap-northeast-2.amazonaws.com/profile.png" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title" th:text="${post.title}"></h5>
-          <a th:href="@{|/post/${post.id}|}" class="btn btn-primary">Go somewhere</a>
+          <a th:href="@{|/post/${post.id}|}" class="btn btn-primary">상세보기</a>
         </div>
       </div>
     </div>
+  </div>
+  <div th:if="${!paging.isEmpty()}">
+    <ul class="pagination justify-content-center">
+      <li class="page-item">
+        <a class="page-link"
+           th:href="@{|?page=0|}">
+          <span><<</span>
+        </a>
+      </li>
+      <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+        <a class="page-link"
+           th:href="@{|?page=${paging.number-1}|}">
+          <span>이전</span>
+        </a>
+      </li>
+      <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+          th:if="${page >= paging.number-5 and page <= paging.number+5}"
+          th:classappend="${page == paging.number} ? 'active'"
+          class="page-item">
+        <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+      </li>
+      <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+        <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+          <span>다음</span>
+        </a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" th:href="@{|?page=${paging.totalPages-1}|}">
+          <span>>></span>
+        </a>
+      </li>
+    </ul>
   </div>
 </body>
 <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js}" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

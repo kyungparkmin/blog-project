@@ -40,7 +40,11 @@ public class PostService {
     public Page<Post> getList(int page) {
         Pageable pageable = PageRequest.of(page, 9);
 
-        return this.postRepository.findAll(pageable);
+        return this.postRepository.findAllByOrderByIdDesc(pageable);
+    }
+
+    public void remove(Post post) {
+        this.postRepository.delete(post);
     }
 
     @Transactional
