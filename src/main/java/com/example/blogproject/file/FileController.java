@@ -1,4 +1,4 @@
-package com.example.blogproject.post;
+package com.example.blogproject.file;
 
 import com.example.blogproject.user.UserService;
 import lombok.NoArgsConstructor;
