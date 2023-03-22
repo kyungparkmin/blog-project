@@ -1,6 +1,6 @@
 package com.example.blogproject.post;
 
-import com.example.blogproject.DataNotFoundException;
+import com.example.blogproject.exception.DataNotFoundException;
 import com.example.blogproject.user.SiteUser;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;

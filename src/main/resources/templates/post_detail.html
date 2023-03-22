@@ -33,7 +33,7 @@
     </div>
   </div>
 </nav>
-<div class="w-75 p-3 row" style="float: none; margin: 20px auto 0; border: 1px solid black">
+<div class="w-75 p-3 row" style="float: none; margin: 20px auto 0;">
   <h1 th:text="${post.title}"></h1>
   <div style="display: block;">
     <span th:if="${post.author != null}" th:text="${post.author.name}"></span> ·
@@ -42,13 +42,37 @@
   <div style="display: block; margin-bottom: 5px;">
     조회수 : <span th:text="${post.views}"></span>
   </div>
-  <a href="javascript:void(0);" th:data-uri="@{|/post/remove/${post.id}|}"
-     style="width: 30px;"
-     class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
-     th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
-     th:text="삭제"></a>
+  <div class="my-3">
+    <a th:href="@{|/post/modify/${post.id}|}" class="btn btn-sm btn-outline-secondary"
+       sec:authorize="isAuthenticated()"
+       th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
+       th:text="수정"></a>
+    <a href="javascript:void(0);" th:data-uri="@{|/post/remove/${post.id}|}"
+       class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+       th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
+       th:text="삭제"></a>
+  </div>
   <hr>
   <div th:utext="${post.content}"></div>
+</div>
+<div class="w-75 p-3 row" style="float: none; margin: 0 auto;">
+  <h5 class="border-bottom my-3 py-2"
+      th:text="|${#lists.size(post.commentList)}개의 답변이 있습니다.|"></h5>
+  <div class="card my-3" th:each="comment : ${post.commentList}">
+    <div class="card-body">
+      <div class="card-text" style="white-space: pre-line;" th:text="${comment.content}"></div>
+      <div class="d-flex justify-content-end">
+        <div class="badge bg-light text-dark p-2 text-start">
+          <div th:text="${#temporals.format(comment.createdDate, 'yyyy-MM-dd HH:mm')}"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <form th:action="@{|/comment/create/${post.id}|}" method="post" class="my-3">
+    <textarea sec:authorize="isAnonymous()" disabled name="content" class="form-control" rows="10"></textarea>
+    <textarea sec:authorize="isAuthenticated()" name="content" class="form-control" rows="10"></textarea>
+    <input type="submit" value="답변등록" class="btn btn-primary my-2">
+  </form>
 </div>
 </body>
 <script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js}" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>

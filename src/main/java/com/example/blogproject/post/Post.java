@@ -1,5 +1,6 @@
 package com.example.blogproject.post;
 
+import com.example.blogproject.comment.Comment;
 import com.example.blogproject.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,6 +15,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @Getter
 @Setter
@@ -43,11 +45,14 @@ public class Post {
     private Long likes;
 
     @CreatedDate
-    private LocalDate createdDate;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
-    private LocalDate updatedTime;
+    private LocalDateTime updatedDate;
 
     @ManyToOne
     private SiteUser author;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private List<Comment> commentList;
 }
