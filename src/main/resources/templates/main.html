@@ -3,104 +3,109 @@
 <head>
   <meta charset="UTF-8">
   <title>메인</title>
-  <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css}" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link th:href="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css}" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">Programming Blog</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
-            <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/signup}">회원가입</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav">
-          <li class="nav-item h-25">
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-              <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </li>
-        </ul>
-      </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Programming Blog</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse justify-content-between" id="collapsibleNavbar">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+          <a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/signup}">회원가입</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item h-25">
+          <form class="d-flex">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+          </form>
+        </li>
+      </ul>
     </div>
-  </nav>
-  <button type="button" class="btn btn-primary" onclick="location.href='/post'" sec:authorize="isAuthenticated()">글쓰기</button>
-  <!--<div class="w-75 p-3 row" style="float: none; margin: 0 auto">
-    <table class="table table-hover">
-      <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">제목</th>
-        <th scope="col">좋아요</th>
-        <th scope="col">조회수</th>
-        <th scope="col">글쓴이</th>
-        <th scope="col">시간</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr th:each="post : ${paging}">
-        <a th:href="@{/post/(id=${post.id})}"><th scope="row" th:text="${post.id}"></th></a>
-        <td th:text="${post.title}"></td>
-        <td th:text="${post.likes}"></td>
-        <td th:text="${post.views}"></td>
-        <td th:text="${post.author.name}"></td>
-        <td th:text="${post.createdDate}"></td>
-      </tr>
-      </tbody>
-    </table>
-  </div>-->
-  <div class="w-75 p-3 row" style="float: none; margin: 0 auto">
-    <div class="col-sm-6 col-md-4" th:each="post : ${paging}" style="margin-top: 30px;">
-      <div class="card" style="width: 18rem;">
-        <img class="card-img-top" src="https://spaghetti-listener.s3.ap-northeast-2.amazonaws.com/profile.png" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title" th:text="${post.title}"></h5>
-          <a th:href="@{|/post/${post.id}|}" class="btn btn-primary">상세보기</a>
-        </div>
+  </div>
+</nav>
+<button type="button" class="btn btn-primary" onclick="location.href='/post'" sec:authorize="isAuthenticated()">글쓰기
+</button>
+<!--<div class="w-75 p-3 row" style="float: none; margin: 0 auto">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">제목</th>
+      <th scope="col">좋아요</th>
+      <th scope="col">조회수</th>
+      <th scope="col">글쓴이</th>
+      <th scope="col">시간</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="post : ${paging}">
+      <a th:href="@{/post/(id=${post.id})}"><th scope="row" th:text="${post.id}"></th></a>
+      <td th:text="${post.title}"></td>
+      <td th:text="${post.likes}"></td>
+      <td th:text="${post.views}"></td>
+      <td th:text="${post.author.name}"></td>
+      <td th:text="${post.createdDate}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>-->
+<div class="w-75 p-3 row" style="float: none; margin: 0 auto">
+  <div class="col-sm-6 col-md-4" th:each="post : ${paging}" style="margin-top: 30px;">
+    <div class="card" style="width: 18rem;">
+      <img class="card-img-top" src="https://spaghetti-listener.s3.ap-northeast-2.amazonaws.com/profile.png"
+           alt="Card image cap">
+      <div class="card-body">
+        <h5 class="card-title" th:text="${post.title}"></h5>
+        <a th:href="@{|/post/${post.id}|}" class="btn btn-primary">상세보기</a>
       </div>
     </div>
   </div>
-  <div th:if="${!paging.isEmpty()}">
-    <ul class="pagination justify-content-center">
-      <li class="page-item">
-        <a class="page-link"
-           th:href="@{|?page=0|}">
-          <span><<</span>
-        </a>
-      </li>
-      <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
-        <a class="page-link"
-           th:href="@{|?page=${paging.number-1}|}">
-          <span>이전</span>
-        </a>
-      </li>
-      <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
-          th:if="${page >= paging.number-5 and page <= paging.number+5}"
-          th:classappend="${page == paging.number} ? 'active'"
-          class="page-item">
-        <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
-      </li>
-      <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
-        <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
-          <span>다음</span>
-        </a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" th:href="@{|?page=${paging.totalPages-1}|}">
-          <span>>></span>
-        </a>
-      </li>
-    </ul>
-  </div>
+</div>
+<div th:if="${!paging.isEmpty()}">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link"
+         th:href="@{|?page=0|}">
+        <span><<</span>
+      </a>
+    </li>
+    <li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+      <a class="page-link"
+         th:href="@{|?page=${paging.number-1}|}">
+        <span>이전</span>
+      </a>
+    </li>
+    <li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+        th:if="${page >= paging.number-5 and page <= paging.number+5}"
+        th:classappend="${page == paging.number} ? 'active'"
+        class="page-item">
+      <a th:text="${page}" class="page-link" th:href="@{|?page=${page}|}"></a>
+    </li>
+    <li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+      <a class="page-link" th:href="@{|?page=${paging.number+1}|}">
+        <span>다음</span>
+      </a>
+    </li>
+    <li class="page-item">
+      <a class="page-link" th:href="@{|?page=${paging.totalPages-1}|}">
+        <span>>></span>
+      </a>
+    </li>
+  </ul>
+</div>
 </body>
-<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js}" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+<script th:src="@{https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js}"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 </html>

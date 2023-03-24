@@ -33,7 +33,8 @@
     </div>
   </div>
 </nav>
-<form th:action="@{/signup}" th:object="${signupForm}" method="post" class="w-50 p-3 row" style="float: none; margin: 0 auto">
+<form th:action="@{/signup}" th:object="${signupForm}" method="post" class="w-50 p-3 row"
+      style="float: none; margin: 0 auto">
   <div th:fragment="formErrorsFragment" class="alert alert-danger"
        role="alert" th:if="${#fields.hasAnyErrors()}">
     <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
