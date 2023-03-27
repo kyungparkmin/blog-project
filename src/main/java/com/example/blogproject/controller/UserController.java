@@ -1,5 +1,7 @@
-package com.example.blogproject.user;
+package com.example.blogproject.controller;
 
+import com.example.blogproject.dto.SignupForm;
+import com.example.blogproject.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;

@@ -1,7 +1,5 @@
-package com.example.blogproject.file;
+package com.example.blogproject.controller;
 
-import com.example.blogproject.user.UserService;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;

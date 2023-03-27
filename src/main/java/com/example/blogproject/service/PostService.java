@@ -1,7 +1,9 @@
-package com.example.blogproject.post;
+package com.example.blogproject.service;
 
 import com.example.blogproject.exception.DataNotFoundException;
-import com.example.blogproject.user.SiteUser;
+import com.example.blogproject.entity.Post;
+import com.example.blogproject.repository.PostRepository;
+import com.example.blogproject.entity.SiteUser;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;

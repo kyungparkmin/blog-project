@@ -1,6 +1,8 @@
-package com.example.blogproject.user;
+package com.example.blogproject.service;
 
+import com.example.blogproject.entity.SiteUser;
 import com.example.blogproject.exception.DataNotFoundException;
+import com.example.blogproject.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

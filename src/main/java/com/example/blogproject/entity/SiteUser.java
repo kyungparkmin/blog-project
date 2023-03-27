@@ -1,4 +1,4 @@
-package com.example.blogproject.user;
+package com.example.blogproject.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

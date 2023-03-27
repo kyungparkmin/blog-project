@@ -1,4 +1,4 @@
-package com.example.blogproject.post;
+package com.example.blogproject.dto;
 
 import lombok.Getter;
 import lombok.Setter;

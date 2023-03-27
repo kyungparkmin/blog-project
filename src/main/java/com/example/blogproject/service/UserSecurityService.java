@@ -1,5 +1,8 @@
-package com.example.blogproject.user;
+package com.example.blogproject.service;
 
+import com.example.blogproject.entity.SiteUser;
+import com.example.blogproject.repository.UserRepository;
+import com.example.blogproject.UserRole;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

@@ -1,4 +1,4 @@
-package com.example.blogproject.user;
+package com.example.blogproject;
 
 import lombok.Getter;
 

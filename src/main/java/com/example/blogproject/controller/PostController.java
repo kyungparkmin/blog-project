@@ -1,7 +1,10 @@
-package com.example.blogproject.post;
+package com.example.blogproject.controller;
 
-import com.example.blogproject.user.SiteUser;
-import com.example.blogproject.user.UserService;
+import com.example.blogproject.entity.Post;
+import com.example.blogproject.dto.PostDTO;
+import com.example.blogproject.service.PostService;
+import com.example.blogproject.entity.SiteUser;
+import com.example.blogproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -12,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
