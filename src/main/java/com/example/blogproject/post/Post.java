@@ -1,6 +1,5 @@
 package com.example.blogproject.post;
 
-import com.example.blogproject.comment.Comment;
 import com.example.blogproject.user.SiteUser;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -52,7 +51,4 @@ public class Post {
 
     @ManyToOne
     private SiteUser author;
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-    private List<Comment> commentList;
 }
