@@ -71,4 +71,13 @@ public class PostController {
 
         return "redirect:/";
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/post/like/{id}")
+    public String postLike(Principal principal, @PathVariable("id") Long id) {
+        Post post = this.postService.findOne(id);
+        SiteUser user = this.userService.getUser(principal.getName());
+        this.postService.like(post, user);
+        return String.format("redirect:/post/%s", id);
+    }
 }

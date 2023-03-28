@@ -43,7 +43,13 @@
   <div style="display: block; margin-bottom: 5px;">
     조회수 : <span th:text="${post.views}"></span>
   </div>
+
   <div class="my-3">
+    <a href="javascript:void(0);" class="like btn btn-sm btn-outline-secondary"
+       th:data-uri="@{|/post/like/${post.id}|}">
+      추천
+      <span class="badge rounded-pill bg-success" th:text="${#lists.size(post.likes)}"></span>
+    </a>
     <a th:href="@{|/post/modify/${post.id}|}" class="btn btn-sm btn-outline-secondary"
        sec:authorize="isAuthenticated()"
        th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
@@ -73,12 +79,20 @@
 <script>
   const delete_elements = document.getElementsByClassName("delete");
   Array.from(delete_elements).forEach((element) => {
-    element.addEventListener('click', function () {
+    element.addEventListener('click', () => {
       if (confirm("삭제하시겠습니까?")) {
         location.href = element.dataset.uri;
       }
     });
   });
+  const like_elements = document.getElementsByClassName("like");
+  Array.from(like_elements).forEach((element) => {
+    element.addEventListener('click', () => {
+      if(confirm("추천하시겠습니까?")) {
+        location.href = element.dataset.uri;
+      }
+    })
+  })
 </script>
 
 </html>

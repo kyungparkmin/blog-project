@@ -45,6 +45,11 @@ public class PostService {
         return this.postRepository.findAllByOrderByIdDesc(pageable);
     }
 
+    public void like(Post post, SiteUser user) {
+        post.getLikes().add(user);
+        this.postRepository.save(post);
+    }
+
     public void remove(Post post) {
         this.postRepository.delete(post);
     }

@@ -11,6 +11,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -35,10 +36,6 @@ public class Post {
     @ColumnDefault("0")
     private Long views;
 
-    @Column(nullable = false)
-    @ColumnDefault("0")
-    private Long likes;
-
     @CreatedDate
     private LocalDateTime createdDate;
 
@@ -47,4 +44,7 @@ public class Post {
 
     @ManyToOne
     private SiteUser author;
+
+    @ManyToMany
+    Set<SiteUser> likes;
 }

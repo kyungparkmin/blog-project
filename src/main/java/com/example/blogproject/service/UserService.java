@@ -1,5 +1,6 @@
 package com.example.blogproject.service;
 
+import com.example.blogproject.entity.Post;
 import com.example.blogproject.entity.SiteUser;
 import com.example.blogproject.exception.DataNotFoundException;
 import com.example.blogproject.repository.UserRepository;
