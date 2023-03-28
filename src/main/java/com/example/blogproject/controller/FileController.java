@@ -21,7 +21,6 @@ public class FileController {
     @PostMapping("/image/upload")
     @ResponseBody
     public ModelAndView image(MultipartHttpServletRequest request) throws Exception {
-
         ModelAndView mv = new ModelAndView("jsonView");
 
         MultipartFile uploadFile = request.getFile("upload");
@@ -35,16 +34,19 @@ public class FileController {
         String realPath = request.getServletContext().getRealPath("/");
         System.out.println(realPath);
 
-        String savePath = fileDir + "\\" + newFileName;
+        String savePath = "\\img\\" + newFileName;
 
         String uploadPath = fileDir + "\\" + newFileName;
 
-        File file = new File(savePath);
+        System.out.println(savePath);
+        System.out.println(uploadPath);
+
+        File file = new File(uploadPath);
 
         uploadFile.transferTo(file);
 
         mv.addObject("uploaded", true);
-        mv.addObject("url", uploadPath);
+        mv.addObject("url", savePath);
 
         return mv;
     }

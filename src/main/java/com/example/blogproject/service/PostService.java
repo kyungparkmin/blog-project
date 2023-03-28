@@ -1,5 +1,6 @@
 package com.example.blogproject.service;
 
+import com.example.blogproject.dto.PostDTO;
 import com.example.blogproject.exception.DataNotFoundException;
 import com.example.blogproject.entity.Post;
 import com.example.blogproject.repository.PostRepository;
@@ -49,6 +50,14 @@ public class PostService {
         post.getLikes().add(user);
         this.postRepository.save(post);
     }
+
+    public void modify(Post post, String title, String content) {
+        post.setTitle(title);
+        post.setContent(content);
+
+        this.postRepository.save(post);
+    }
+
 
     public void remove(Post post) {
         this.postRepository.delete(post);

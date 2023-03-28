@@ -73,6 +73,36 @@ public class PostController {
     }
 
     @PreAuthorize("isAuthenticated()")
+    @GetMapping("/post/modify/{id}")
+    public String modifyPost(PostDTO postDTO, @PathVariable("id") Long id, Principal principal) {
+        Post post = this.postService.findOne(id);
+
+        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다");
+        }
+
+        postDTO.setTitle(post.getTitle());
+        postDTO.setContent(post.getContent());
+
+        return "modify-page";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/post/modify/{id}")
+    public String modifyPost(Principal principal, PostDTO postDTO, @PathVariable("id") Long id) {
+        Post post = this.postService.findOne(id);
+
+        if(!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정 권한이 없습니다");
+        }
+
+        this.postService.modify(post, postDTO.getTitle(), postDTO.getContent());
+
+
+        return String.format("redirect:/post/%s", id);
+    }
+
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/post/like/{id}")
     public String postLike(Principal principal, @PathVariable("id") Long id) {
         Post post = this.postService.findOne(id);
