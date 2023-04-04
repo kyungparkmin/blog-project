@@ -54,24 +54,10 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/post/save")
     @ResponseBody
-    public String savePost(PostDTO postDTO, Principal principal, @RequestParam("preview") MultipartFile file) throws IOException {
-        System.out.println(file);
-
-        String filename = file.getOriginalFilename();
-        String extension = filename.substring(filename.lastIndexOf(".") + 1);
-        String key = UUID.randomUUID() + "." + extension;
-
-        System.out.println(key);
-
-        s3Client.putObject(bucketName, key, file.getInputStream(), null);
-
-        String url = s3Client.getUrl(bucketName, key).toString();
-
-        System.out.println(url);
-
+    public String savePost(PostDTO postDTO, Principal principal) throws IOException {
         SiteUser user = this.userService.getUser(principal.getName());
 
-        this.postService.save(postDTO.getTitle(), postDTO.getContent(), user, url);
+        this.postService.save(postDTO.getTitle(), postDTO.getContent(), user);
 
         return "redirect:/";
     }
