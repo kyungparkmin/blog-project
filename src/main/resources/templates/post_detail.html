@@ -38,7 +38,7 @@
   <h1 th:text="${post.title}"></h1>
   <div style="display: block;">
     <span th:if="${post.author != null}" th:text="${post.author.name}"></span> ·
-    <div th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></div>
+    <span th:text="${#temporals.format(post.createdDate, 'yyyy-MM-dd HH:mm')}"></span>
   </div>
   <div style="display: block; margin-bottom: 5px;">
     조회수 : <span th:text="${post.views}"></span>
@@ -61,7 +61,6 @@
   </div>
   <hr>
   <div th:utext="${post.content}"></div>
-  <img src="/img/home.png">
   <div class="border-bottom my-3 py-2"></div>
     <div id="utterances-container"></div>
     <script src="https://utteranc.es/client.js"
@@ -95,5 +94,4 @@
     })
   })
 </script>
-
 </html>

@@ -20,12 +20,13 @@ public class PostService {
 
     private final PostRepository postRepository;
 
-    public void save(String title, String content, SiteUser user) {
+    public void save(String title, String content, SiteUser user, String preview) {
         Post post = new Post();
 
         post.setTitle(title);
         post.setContent(content);
         post.setAuthor(user);
+        post.setPreview(preview);
 
         this.postRepository.save(post);
     }

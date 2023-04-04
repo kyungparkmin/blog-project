@@ -53,6 +53,7 @@
 <div class="w-75 p-3 row" style="float: none; margin: 0 auto">
   <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요"
          style="width: 95%; margin-left: 30px; margin-bottom: 10px;"><br>
+  <input type="file" class="form-control" name="preview" id="preview" placeholder="미리보기 사진을 추가해 주세요">
   <div>
     <textarea id="editor" name="content" placeholder="내용을 입력하세요"></textarea>
   </div>
@@ -73,7 +74,7 @@
         autoParagraph: false,
         enterMode: 2,
         ckfinder: {
-          uploadUrl: '/upload'
+          uploadUrl: `/upload`
         },
         htmlSupport: {
           allow: [
@@ -95,19 +96,26 @@
       });
 
 
-  const submit = () => {
-    let title = document.getElementById("title").value;
-    let formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', editor.getData());
+  const submit = async () => {
+    const title = document.getElementById("title").value;
+    const preview = document.getElementById("preview");
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("content", editor.getData());
+    formData.append("preview", preview.files[0]);
 
-    axios.post('http://localhost:8080/post/save', formData, {}).then((res) => {
-      console.log(res);
-      location.href = '/';
-    }).catch((err) => {
-      console.error(err);
-    })
-  }
+    try {
+      const response = await axios.post("/post/save", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(response);
+      location.href = "/";
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
 </script>
 </html>

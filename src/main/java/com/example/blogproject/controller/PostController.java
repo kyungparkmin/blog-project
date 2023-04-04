@@ -1,20 +1,28 @@
 package com.example.blogproject.controller;
 
+import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.example.blogproject.config.S3Client;
 import com.example.blogproject.entity.Post;
 import com.example.blogproject.dto.PostDTO;
 import com.example.blogproject.service.PostService;
 import com.example.blogproject.entity.SiteUser;
 import com.example.blogproject.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.security.Principal;
+import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,6 +30,10 @@ public class PostController {
 
     private final UserService userService;
     private final PostService postService;
+    private final AmazonS3 s3Client;
+
+    @Value("${cloud.aws.s3.bucket}")
+    private String bucketName;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post")
@@ -41,10 +53,25 @@ public class PostController {
 
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/post/save")
-    public String savePost(PostDTO postDTO, Principal principal) {
+    @ResponseBody
+    public String savePost(PostDTO postDTO, Principal principal, @RequestParam("preview") MultipartFile file) throws IOException {
+        System.out.println(file);
+
+        String filename = file.getOriginalFilename();
+        String extension = filename.substring(filename.lastIndexOf(".") + 1);
+        String key = UUID.randomUUID() + "." + extension;
+
+        System.out.println(key);
+
+        s3Client.putObject(bucketName, key, file.getInputStream(), null);
+
+        String url = s3Client.getUrl(bucketName, key).toString();
+
+        System.out.println(url);
+
         SiteUser user = this.userService.getUser(principal.getName());
 
-        this.postService.save(postDTO.getTitle(), postDTO.getContent(), user);
+        this.postService.save(postDTO.getTitle(), postDTO.getContent(), user, url);
 
         return "redirect:/";
     }

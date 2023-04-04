@@ -35,6 +35,9 @@ public class Post {
     @ColumnDefault("0")
     private Long views;
 
+    @Column(columnDefinition = "TEXT")
+    private String preview;
+
     @CreatedDate
     private LocalDateTime createdDate;
 
