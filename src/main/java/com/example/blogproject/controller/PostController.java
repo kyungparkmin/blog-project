@@ -30,10 +30,6 @@ public class PostController {
 
     private final UserService userService;
     private final PostService postService;
-    private final AmazonS3 s3Client;
-
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucketName;
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post")
@@ -63,10 +59,11 @@ public class PostController {
     }
 
     @GetMapping("/")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page) {
-        Page<Post> paging = this.postService.getList(page);
+    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page, @RequestParam(value="q", defaultValue = "") String q) {
+        Page<Post> paging = this.postService.getList(page, q);
 
         model.addAttribute("paging", paging);
+        model.addAttribute("q", q);
 
         return "main";
     }

@@ -3,6 +3,7 @@ package com.example.blogproject.repository;
 import com.example.blogproject.entity.Post;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,5 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     int updateViews(@Param("id") Long id);
 
     Page<Post> findAllByOrderByIdDesc(Pageable pageable);
+    Page<Post> findAll(Specification<Post> spec, Pageable pageable);
 }
