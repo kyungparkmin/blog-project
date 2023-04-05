@@ -9,7 +9,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/">Programming Blog</a>
+    <a class="navbar-brand" href="/"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -27,7 +27,7 @@
         <li class="nav-item h-25">
           <div class="input-group">
             <input type="text" id="search_q" class="form-control" th:value="${q}">
-            <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+            <button class="btn btn-primary" type="button" id="btn_search">검색</button>
           </div>
         </li>
       </ul>
@@ -38,7 +38,7 @@
 <div class="w-75 p-3 row" style="float: none; margin: 0 auto;">
   <div class="col-sm-6 col-md-4" th:each="post : ${paging}" style="margin-top: 30px;">
     <div class="card" style="width: 18rem;">
-      <img class="card-img-top" src="https://spaghetti-listener.s3.ap-northeast-2.amazonaws.com/profile.png"
+      <img class="card-img-top" src="https://kyungmin-log.s3.ap-northeast-2.amazonaws.com/pngegg.png"
            alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title" th:text="${post.title}"></h5>

@@ -7,6 +7,7 @@ import com.example.blogproject.entity.Post;
 import com.example.blogproject.dto.PostDTO;
 import com.example.blogproject.service.PostService;
 import com.example.blogproject.entity.SiteUser;
+import com.example.blogproject.service.S3Service;
 import com.example.blogproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -31,6 +32,8 @@ public class PostController {
     private final UserService userService;
     private final PostService postService;
 
+    private final S3Service s3Service;
+
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/post")
     public String write() {
@@ -50,7 +53,8 @@ public class PostController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/post/save")
     @ResponseBody
-    public String savePost(PostDTO postDTO, Principal principal) throws IOException {
+    public String savePost(PostDTO postDTO, Principal principal, @RequestParam("file") MultipartFile file) throws IOException {
+        String url = s3Service.upload(file);
         SiteUser user = this.userService.getUser(principal.getName());
 
         this.postService.save(postDTO.getTitle(), postDTO.getContent(), user);

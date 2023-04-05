@@ -27,12 +27,10 @@ public class FileController {
         ModelAndView mv = new ModelAndView("jsonView");
 
         MultipartFile file = request.getFile("upload");
-        System.out.println(file);
+
         String filename = file.getOriginalFilename();
         String extension = filename.substring(filename.lastIndexOf(".") + 1);
         String key = UUID.randomUUID() + "." + extension;
-
-        System.out.println(key);
 
         s3client.putObject(bucketName, key, file.getInputStream(), null);
 
