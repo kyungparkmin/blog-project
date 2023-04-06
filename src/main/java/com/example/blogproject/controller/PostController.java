@@ -55,9 +55,10 @@ public class PostController {
     @ResponseBody
     public String savePost(PostDTO postDTO, Principal principal, @RequestParam("file") MultipartFile file) throws IOException {
         String url = s3Service.upload(file);
+
         SiteUser user = this.userService.getUser(principal.getName());
 
-        this.postService.save(postDTO.getTitle(), postDTO.getContent(), user);
+        this.postService.save(postDTO.getTitle(), postDTO.getContent(), user, url);
 
         return "redirect:/";
     }

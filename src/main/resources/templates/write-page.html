@@ -90,9 +90,11 @@
 
   const submit = async () => {
     const title = document.getElementById("title").value;
+    const file = document.querySelector('#img').files[0];
     const formData = new FormData();
     formData.append("title", title);
     formData.append("content", editor.getData());
+    formData.append("file", file);
 
     try {
       const response = await axios.post("/post/save", formData, {
