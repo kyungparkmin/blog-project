@@ -1,8 +1,5 @@
 package com.example.blogproject.controller;
 
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.model.ObjectMetadata;
-import com.example.blogproject.config.S3Client;
 import com.example.blogproject.entity.Post;
 import com.example.blogproject.dto.PostDTO;
 import com.example.blogproject.service.PostService;
@@ -10,7 +7,6 @@ import com.example.blogproject.entity.SiteUser;
 import com.example.blogproject.service.S3Service;
 import com.example.blogproject.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,11 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.UUID;
 
 @Controller
 @RequiredArgsConstructor
